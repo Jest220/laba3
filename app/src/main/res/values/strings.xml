@@ -2,4 +2,5 @@
     <string name="app_name">lr3_428_04</string>
     <string name="add">Добавить</string>
     <string name="administration">Администрирование</string>
+    <string name="delete_all_records">Удалить все записи</string>
 </resources>
