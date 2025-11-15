@@ -1,6 +1,6 @@
 package com.lr3_428_04;
 
-import android.database.Cursor;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -19,14 +19,13 @@ import com.lr3_428_04.database.RoomDao;
 import com.lr3_428_04.model.RoomItem;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private FloatingActionButton add;
-    private FloatingActionButton admin;
-    private FloatingActionButton deleteAll;
+    private FloatingActionButton fabAdd;
+    private FloatingActionButton fabAdmin;
+    private FloatingActionButton fabDeleteAll;
     private DBHelper dbHelper;
     private SQLiteDatabase db;
     private RoomDao roomDao;
@@ -45,13 +44,15 @@ public class MainActivity extends AppCompatActivity {
         initializeViews();
         initializeDatabase();
         initializeRecycleView();
+        setupButtons();
     }
 
     private void initializeViews() {
-        add = findViewById(R.id.fab_add);
-        admin = findViewById(R.id.fab_admin);
-        deleteAll = findViewById(R.id.fab_delete_all);
+        fabAdd = findViewById(R.id.fab_add);
+        fabAdmin = findViewById(R.id.fab_admin);
+        fabDeleteAll = findViewById(R.id.fab_delete_all);
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initializeDatabase() {
@@ -68,7 +69,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeRecycleView() {
         List<RoomItem> rooms = roomDao.getAll();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RoomAdapter(rooms));
+    }
+
+    private void setupButtons() {
+        fabAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RoomEditActivity.class);
+            startActivity(intent);
+        });
+        fabDeleteAll.setOnClickListener(v -> {
+            roomDao.deleteAll();
+            initializeRecycleView();
+            Toast.makeText(this, "Все помещения удалены", Toast.LENGTH_LONG).show();
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeRecycleView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (db != null && db.isOpen()) {
+            db.close();
+        }
     }
 }

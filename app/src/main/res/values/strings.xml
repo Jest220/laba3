@@ -3,4 +3,13 @@
     <string name="add">Добавить</string>
     <string name="administration">Администрирование</string>
     <string name="delete_all_records">Удалить все записи</string>
+    <string name="room">Помещение</string>
+    <string name="room_number">Номер помещения</string>
+    <string name="room_type">Тип помещения</string>
+    <string name="equip_type">Тип оборудования</string>
+    <string name="equip_brand">Марка</string>
+    <string name="cancel">Отменить</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="rooms">Помещения</string>
 </resources>
