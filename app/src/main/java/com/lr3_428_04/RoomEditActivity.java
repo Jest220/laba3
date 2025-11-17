@@ -69,6 +69,7 @@ public class RoomEditActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Ошибка при инициализации базы данных", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
     }
@@ -130,7 +131,7 @@ public class RoomEditActivity extends AppCompatActivity {
             Snackbar.make(etRoomNumber, "Номер помещения не должен быть пустым", Snackbar.LENGTH_SHORT).show();
             return;
         } else if (!roomNumber.matches("^\\d[A-Za-zА-Яа-я0-9]*$")) {
-            Snackbar.make(etRoomNumber, "Номер помещения должен начинаться с цифры и содержать только буквы и цифры", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(etRoomNumber, "Номер помещения должен начинаться с цифры и может содержать буквы", Snackbar.LENGTH_SHORT).show();
             return;
         } else if (roomNumber.length() > 50) {
             Snackbar.make(etRoomNumber, "Номер помещения должен не превышать 50 символов", Snackbar.LENGTH_SHORT).show();

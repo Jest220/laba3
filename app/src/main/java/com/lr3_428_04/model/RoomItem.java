@@ -13,7 +13,7 @@ public class RoomItem implements Parcelable {
     private String equipBrand;
     private int roomTypeId;
     private int equipTypeId;
-    public static final Creator<RoomItem> CREATOR = new Creator<RoomItem>() {
+    public static final Creator<RoomItem> CREATOR = new Creator<>() {
         @Override
         public RoomItem createFromParcel(Parcel source) {
             int id = source.readInt();

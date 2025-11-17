@@ -1,5 +1,7 @@
 package com.lr3_428_04.database;
 
+import androidx.annotation.NonNull;
+
 public enum SimpleTypeTableName {
     ROOM_TYPES("room_types", "Типы помещений"),
     EQUIP_TYPES("equip_types", "Типы оборудований");
@@ -14,4 +16,11 @@ public enum SimpleTypeTableName {
 
     public String getName() { return name; }
     public String getReadableName() { return readableName; }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getReadableName();
+    }
 }
