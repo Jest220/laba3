@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
             initializeRecycleView();
             Toast.makeText(this, "Все помещения удалены", Toast.LENGTH_LONG).show();
         });
+        fabAdmin.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
