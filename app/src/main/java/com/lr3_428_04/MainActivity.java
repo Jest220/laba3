@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -78,14 +79,29 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         fabDeleteAll.setOnClickListener(v -> {
-            roomDao.deleteAll();
-            initializeRecycleView();
-            Toast.makeText(this, "Все помещения удалены", Toast.LENGTH_LONG).show();
-        });
+            new AlertDialog.Builder(this)
+                .setTitle("Подтверждение удаления")
+                .setMessage("Вы уверены, что хотите удалить все помещения?")
+                .setPositiveButton("Удалить", (dialog, which) -> {
+                    deleteAll();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Отмена", ((dialog, which) -> {
+                    dialog.dismiss();
+                }))
+                .show();
+            }
+        );
         fabAdmin.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AdminActivity.class);
             startActivity(intent);
         });
+    }
+
+    public void deleteAll() {
+        roomDao.deleteAll();
+        initializeRecycleView();
+        Toast.makeText(this, "Все помещения удалены", Toast.LENGTH_LONG).show();
     }
 
     @Override
